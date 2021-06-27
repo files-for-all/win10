@@ -22,11 +22,13 @@ jobs:
       run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
     - name: Allow RDP Property from Regdit
       run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
-    - name: Assign User
+    - name: Cria o User
       run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "Vscode100" -Force)
-    - name: Create Tunnel
+    - name: Cria a rdp no ngrok
       run: Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp 3389"'
-    - name: Download Timeout Script
+    - name: instala o ngc pro pc n morre
       run: Invoke-WebRequest https://raw.githubusercontent.com/files0/files/main/timeout.ps1 -OutFile timeout.ps1
-    - name: Keep Alive
+    - name: Fica vivo
+      run: ./timeout.ps1
+    - name: ultimo ngc para forçar a n morre
       run: ./timeout.ps1
